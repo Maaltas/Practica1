@@ -23,7 +23,7 @@ public class Memory {
             Boolean encertats [][]=new Boolean[fil][col];
             taulell=randomizador(taulell,fil,col,paraules);
             System.out.println("*********************************");
-            comprovacio(taulell,fil,col,paraules);
+            comprovacio(taulell,fil,col,paraules,0);
             System.out.println("*********************************");
             imprimirTaulell(taulell,fil,col);
             System.out.println("Vols continuar?");
@@ -66,25 +66,30 @@ public class Memory {
             System.out.println(" ");
         }
     }
-    private static void comprovacio(String [][] t,int fil, int col, String [] paraules){
+    private static void comprovacio(String [][] t,int fil, int col, String [] paraules,int cont){
         // agafem uns valors inicials, amb aquest valors hem de comparar tota la matriu fins trobar una igual o un null
         Random var = new Random();
-        int a=0,cont=0;
+        int a=0;
         while ((fil*col)/2>a){
             for (int x=0; x<fil; x++){
-                for (int y=1; y<col; y++){
+                for (int y=0; y<col; y++){
+                    System.out.println("Paraula analitzant: "  + paraules[a]);
                     if(t[x][y].equals(paraules[a])){
                         cont++;
-                        if(cont>1){
+                        System.out.println("Analitizant la posisicó: " + x +"·" + y + " valor del contador: " + cont);
+                        if(cont==2){
                             System.out.println("S'ha fet un canvi a la posició -->  " + x + "·" + y);
                             System.out.print("L'antiga paraula era: " + t[x][y]);
-                            t[x][y]=paraules[var.nextInt(fil*col)/2];
+                            t[x][y]=paraules[var.nextInt((fil*col)/2)];
                             System.out.println(", la nova paraula serà: " + t[x][y]);
                             cont=0;
+                            //comprovacio(t,fil,col,paraules,cont);
                         }
                     }
                 }
             }
+            System.out.println("Ha acabat el for");
+            cont=0;
             a++;
         }
 
