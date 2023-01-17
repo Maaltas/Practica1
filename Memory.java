@@ -22,7 +22,10 @@ public class Memory {
             String taulell[][]=new String[fil][col];
             Boolean encertats [][]=new Boolean[fil][col];
             taulell=randomizador(taulell,fil,col,paraules);
-            imprimirTaulell(taulell);
+            System.out.println("*********************************");
+            comprovacio(taulell,fil,col,paraules);
+            System.out.println("*********************************");
+            imprimirTaulell(taulell,fil,col);
             System.out.println("Vols continuar?");
             continuar=obj.next();
         } while (continuar!="s" || continuar!="S");
@@ -35,41 +38,55 @@ public class Memory {
     }
     private static String[][] randomizador(String[][] t,int fil, int col, String[] paraules){
         String s;
+        Boolean a;
+        int cont=0;
         Random var = new Random();
-        for (int x=0; x<t.length; x++){
-            for (int y=0; y<t.length+1; y++){
-                do{
-                    s=paraules[var.nextInt(18)];
-                    t[x][y]=s;
-                } while (comprovacio(t,s)==false);
+        for (int x=0; x<fil; x++){
+            for (int y=0; y<col; y++){
+                s=paraules[var.nextInt((fil*col)/2)];
+                t[x][y]=s;
+                System.out.println(x + "·" + y + " --> " + t[x][y]);
             }
         }
         return t;
     }
     private static boolean ValorCorrecte(int fil, int col) {
-        if (fil*col % 2 == 0 && fil >0 && col >0 && fil*col<=36) {
+        if (fil*col % 2 == 0 && fil>0 && col>0 && fil*col<=36) {
             return true;
         }else {
             System.out.println("Error, torna a indicar les mides");
             return false;
         }
     }
-    private static void imprimirTaulell(String [][] taulell){
-        for (int x=0; x<taulell.length; x++){
-            for (int y=0; y<=taulell.length; y++){
+    private static void imprimirTaulell(String [][] taulell,int fil, int col){
+        for (int x=0; x<fil; x++){
+            for (int y=0; y<col; y++){
                 System.out.print(taulell[x][y]);
             }
             System.out.println(" ");
         }
     }
-    private static boolean comprovacio(String [][] t, String b){
-        for (int x=0; x<t.length; x++){
-            for (int y=0; y<=t.length; y++){
-                if (t[x][y].equals(b)){
-                    return true;
+    private static void comprovacio(String [][] t,int fil, int col, String [] paraules){
+        // agafem uns valors inicials, amb aquest valors hem de comparar tota la matriu fins trobar una igual o un null
+        Random var = new Random();
+        int a=0,cont=0;
+        while ((fil*col)/2>a){
+            for (int x=0; x<fil; x++){
+                for (int y=1; y<col; y++){
+                    if(t[x][y].equals(paraules[a])){
+                        cont++;
+                        if(cont>1){
+                            System.out.println("S'ha fet un canvi a la posició -->  " + x + "·" + y);
+                            System.out.print("L'antiga paraula era: " + t[x][y]);
+                            t[x][y]=paraules[var.nextInt(fil*col)/2];
+                            System.out.println(", la nova paraula serà: " + t[x][y]);
+                            cont=0;
+                        }
+                    }
                 }
             }
+            a++;
         }
-        return false;
+
     }
 }
