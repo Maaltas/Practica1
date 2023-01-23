@@ -94,4 +94,5 @@ public class Memory {
         }
 
     }
+    // UN METODE EL QUAL COMPROVI UNICAMENT AQUELLA PARAULA QUE VUI COMPROVAR SI ESTA A LA MATRIU O NO quants()
 }
