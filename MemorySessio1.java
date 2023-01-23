@@ -94,5 +94,13 @@ public class Memory {
         }
 
     }
+    private static int quants(String parula, String[][] taulell){
+        int quantes=0;
+        boolean trobat=false;
+        for (int x=0; taulell.length;x++){
+            for(int y=0; taulell[x].length;)
+        }
+        return quantes;
+    }
     // UN METODE EL QUAL COMPROVI UNICAMENT AQUELLA PARAULA QUE VUI COMPROVAR SI ESTA A LA MATRIU O NO quants()
 }
