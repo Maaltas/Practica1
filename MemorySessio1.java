@@ -37,6 +37,7 @@ public class Memory {
         } else return false;
     }
     private static String[][] randomizador(String[][] t,int fil, int col, String[] paraules){
+        /*
         String s;
         Boolean a;
         int cont=0;
@@ -46,6 +47,20 @@ public class Memory {
                 s=paraules[var.nextInt((fil*col)/2)];
                 t[x][y]=s;
                 System.out.println(x + "·" + y + " --> " + t[x][y]);
+            }
+        }
+        */
+        String s;
+        int cont=0;
+        Random var = new Random();
+        for (int x=0; x<fil; x++) {
+            for (int y = 0; y < col; y++) {
+                s=paraules[var.nextInt((fil*col)/2)];
+                if(comprovacioUnica(t,s)>0){
+                    continue;
+                }
+                cont++;
+                t[x][y]=s;
             }
         }
         return t;
