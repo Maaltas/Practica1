@@ -72,9 +72,10 @@ public class Memory {
                 }
                 System.out.println("Portes: " + parelles + " et falten: " + (((fil*col)/2)-parelles));
             }
-            System.out.println("Vols continuar?");
+            System.out.println("Felicitats!! Has trobat totes les parelles");
+            System.out.println("Vols fer unaltre partida");
             continuar=obj.next().charAt(0);
-            if(continuar=='s' || continuar=='S'){
+            if(continuar!='s' || continuar!='S'){
                 fin=true;
             }
         }
