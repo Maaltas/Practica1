@@ -139,18 +139,9 @@ public class Memory {
             return false;
         }
     }
-    private static void imprimirTaulellPle(String [][] taulell,int fil, int col){
-        for (int x=0; x<fil; x++){
-            for (int y=0; y<col; y++){
-                System.out.print(taulell[x][y]);
-            }
-            System.out.println(" ");
-        }
-    }
     private static int quants(String parula, String[][] taulell){
         int quantes=0;
-        boolean trobat=false;
-        for (int x=0; x<taulell.length && !trobat;x++){
+        for (int x=0; x<taulell.length;x++){
             for(int y=0; y<taulell[x].length;y++){
                 if (parula.equals(taulell[x][y])){
                     quantes++;
