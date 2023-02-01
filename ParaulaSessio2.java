@@ -8,9 +8,18 @@ public class Paraula {
     public Paraula(String mot){
         this.mot=mot.toCharArray();
         llarg=mot.length();
+        parella=false;
     }
     public boolean iguals (Paraula altra){
-        return altra.equals(this);
+        if(altra.llarg!=this.llarg){
+            return false;
+        }
+        for(int x=0; x<this.mot.length;x++){
+            if(this.mot[x]!=altra.mot[x]){
+                    return false;
+            }
+        }
+        return true;
     }
     public void mostrarParaula(){
         for (int x=0; x<llarg;x++){
@@ -21,6 +30,7 @@ public class Paraula {
         return parella;
     }
     public boolean setParella(){
-        return parella= !parella;
+        return parella=!parella;
     }
 }
+
