@@ -1,6 +1,5 @@
 package Sessio2;
 import java.util.Random;
-import java.util.random.*;
 public class Taulell {
     private Paraula [][] taulell;
     private int parelles;
