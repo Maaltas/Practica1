@@ -89,7 +89,7 @@ public class Taulell {
         return taulell[fil][col].getParella();
     }
     public boolean fiJoc(){
-        if (parelles==fil*col){
+        if (parelles==fil*col/2){
             return true;
         }
         return false;
