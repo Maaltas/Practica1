@@ -1,0 +1,25 @@
+package Sessio2;
+
+public class Paraula {
+    private char mot;
+    private int llarg;
+    private boolean parella;
+
+    public Paraula(String mot){
+        char[] charArray = mot.toCharArray();
+    }
+    public boolean iguals (Paraula altra){
+        return altra.equals(this);
+    }
+    public void mostrarParaula(){
+        for (char c: this){
+            
+        }
+    }
+    public boolean getParella(){
+        return parella;
+    }
+    public boolean setParella(){
+        return parella= !parella;
+    }
+}
