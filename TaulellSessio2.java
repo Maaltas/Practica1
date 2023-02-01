@@ -8,12 +8,15 @@ public class Taulell {
 
     public Taulell (int fil, int col){
         Paraula taulell[][]= new Paraula [fil][col];
+        System.out.println(taulell.length);
+        this.emplena();
+        parelles=(fil*col)/2;
     }
     private void emplena(){
         Random var = new Random();
         String s;
-        for (int x=0; x< taulell.length;x++){
-            for (int y=0; y<taulell[x].length;y++) {
+        for (int x=0; x< this.taulell.length;x++){
+            for (int y=0; y<this.taulell[x].length;y++) {
                 s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];;
                 taulell[x][y]=new Paraula(s);
                 while (quants(s)){
@@ -29,7 +32,7 @@ public class Taulell {
             for (int y = 0; y < taulell[x].length; y++) {
                 if(usedWords[x].equals(paraula)){
                     quants++;
-                }  
+                }
                 if (quants==2){
                     return true;
                 }
@@ -41,9 +44,9 @@ public class Taulell {
     public void mostrar(int fil1, int col1, int fil2, int col2){
         for(int x=0;x< taulell.length;x++){
             for(int y=0; y< taulell[x].length;y++){
-                if(taulell[x][y].getParella() && taulell[fil1][col1].getParella()){
+                if(this.aparellada(x,y) && this.aparellada(fil1,col1)){
                     System.out.print(taulell[x][y]);
-                } else if (taulell[x][y].getParella() && taulell[fil2][col2].getParella()){
+                } else if (this.aparellada(x,y) && this.aparellada(fil2,col2)){
                     System.out.print(taulell[x][y]);
                 } else {
                     System.out.print("TAPAT       ");
@@ -56,6 +59,7 @@ public class Taulell {
         if(taulell[fil1][col1].equals(taulell[fil2][col2])){
             taulell[fil1][col1].setParella();
             taulell[fil2][col2].setParella();
+            parelles++;
             return true;
         }
         return false;
