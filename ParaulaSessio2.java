@@ -33,4 +33,3 @@ public class Paraula {
         return parella=!parella;
     }
 }
-
