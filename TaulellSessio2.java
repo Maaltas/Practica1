@@ -11,7 +11,7 @@ public class Taulell {
         taulell = new Paraula[fil][col];
         this.fil=fil;
         this.col=col;
-        parelles=(fil*col)/2;
+        parelles=0;
         emplena();
     }
     private void emplena(){
@@ -22,17 +22,17 @@ public class Taulell {
             for (int y=0; y<col;y++) {
                 s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];;
                 taulell[x][y]=new Paraula(s);
-                while (quants(s,usedWords)){
+                while (quants(s)){
                     s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];
                     taulell[x][y]=new Paraula(s);
                 }
-                System.out.println("Posicio: " + x + "·" + y + " on la paraula es: " + s);
+                System.out.println(x+"·"+y+" " + s);
                 usedWords[cont]=s;
                 cont++;
             }
         }
     }
-    private boolean quants(String paraula, String [] usedWords){
+    private boolean quants(String paraula){
         int quants=0;
         int x=0;
         while (x<usedWords.length) {
@@ -56,7 +56,8 @@ public class Taulell {
             for(int x=0;x< fil;x++){
                 for(int y=0; y< col;y++){
                     if(x==fil1 && y==col1 || x==fil2 && y==col2){
-                        System.out.print(taulell[x][y]);
+                        taulell[x][y].mostrarParaula();
+                        System.out.print("        ");
                     } else {
                         System.out.print("TAPAT       ");
                     }
@@ -71,20 +72,9 @@ public class Taulell {
                 System.out.println("");
             }
         }
-                        /*
-                if(aparellada(x,y) && aparellada(fil1,col1)){
-                    System.out.print(taulell[x][y]);
-                } else if (aparellada(x,y) && aparellada(fil2,col2)){
-                    System.out.print(taulell[x][y]);
-                } else {
-                    System.out.print("TAPAT       ");
-                }
-                */
-
     }
     public boolean fanParella(int fil1, int col1, int fil2, int col2){
-        if(taulell[fil1][col1].equals(taulell[fil2][col2])){
-            System.out.println("hola");
+        if(taulell[fil1][col1].iguals(taulell[fil2][col2])){
             taulell[fil1][col1].setParella();
             taulell[fil2][col2].setParella();
             parelles++;
@@ -96,7 +86,7 @@ public class Taulell {
         return taulell[fil][col].getParella();
     }
     public boolean fiJoc(){
-        if (parelles==((taulell.length*taulell[0].length)/2)){
+        if (parelles==fil*col){
             return true;
         }
         return false;
