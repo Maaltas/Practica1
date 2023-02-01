@@ -26,7 +26,6 @@ public class Taulell {
                     s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];
                     taulell[x][y]=new Paraula(s);
                 }
-                System.out.println(x+"·"+y+" " + s);
                 usedWords[cont]=s;
                 cont++;
             }
@@ -55,7 +54,7 @@ public class Taulell {
         if(fanParella(fil1,col1,fil2,col2)){
             for(int x=0;x< fil;x++){
                 for(int y=0; y< col;y++){
-                    if(x==fil1 && y==col1 || x==fil2 && y==col2){
+                    if(taulell[x][y].getParella()){
                         taulell[x][y].mostrarParaula();
                         System.out.print("        ");
                     } else {
@@ -75,10 +74,14 @@ public class Taulell {
     }
     public boolean fanParella(int fil1, int col1, int fil2, int col2){
         if(taulell[fil1][col1].iguals(taulell[fil2][col2])){
-            taulell[fil1][col1].setParella();
-            taulell[fil2][col2].setParella();
-            parelles++;
-            return true;
+            if(taulell[fil1][col1].getParella() || taulell[fil2][col2].getParella()){
+                return true;
+            } else {
+                taulell[fil1][col1].setParella();
+                taulell[fil2][col2].setParella();
+                parelles++;
+                return true;
+            }
         }
         return false;
     }
