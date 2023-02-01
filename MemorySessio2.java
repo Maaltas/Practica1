@@ -18,8 +18,7 @@ public class Memory {
             col = obj.nextInt(); //col=Keyboard.readint();
         }
         Taulell t = new Taulell(fil, col);
-        int parelles = 0;
-        while (t.fiJoc()) {
+        while (!t.fiJoc()) {
             System.out.println("Quina fila vols destapar?");
             int fil1 = obj.nextInt();
             System.out.println("Quina columna vols destapar?");
