@@ -1,97 +1,75 @@
 package Sessio2;
-import java.util.Random;
-public class Taulell {
-    private Paraula [][] taulell;
-    private int parelles;
-    private static final String[] mots = {"pinya     ", "Kiwi     ", "cirera     ", "maduixa     ", "melo     ", "llimona     ", "mandarina     ", "pepino     ", "platan     ", "chirimoia     ", "poma     ", "granada     ", "raim     ", "pera     ", "taronja     ", "papaya     ", "sindria     ", "fambruesa     "};
-    private static final String[] usedWords = new String[36];
-    private int fil;
-    private int col;
-    public Taulell (int fil, int col){
-        taulell = new Paraula[fil][col];
-        this.fil=fil;
-        this.col=col;
-        parelles=0;
-        emplena();
-    }
-    private void emplena(){
-        Random var = new Random();
-        String s;
-        int cont=0;
-        for (int x=0; x< fil;x++){
-            for (int y=0; y<col;y++) {
-                s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];;
-                taulell[x][y]=new Paraula(s);
-                while (quants(s)){
-                    s=mots[var.nextInt((taulell.length)*(taulell[x].length)/2)];
-                    taulell[x][y]=new Paraula(s);
-                }
-                usedWords[cont]=s;
-                cont++;
-            }
+
+import java.util.Scanner;
+
+public class Memory {
+    public static void main(String[] args) {
+        Scanner obj = new Scanner(System.in);
+        System.out.println("Joc del Memory. Entra les dimensions del taulell");
+        System.out.println("****************************************************");
+        System.out.println("Indica el número de files del taulell");
+        int fil = obj.nextInt(); //fil=Keyboard.readint();
+        System.out.println("Indica el número de columnes del taulell");
+        int col = obj.nextInt(); //col=Keyboard.readint();
+        while (!ValorCorrecte(fil, col)) {
+            System.out.println("Indica el número de files del taulell");
+            fil = obj.nextInt(); //fil=Keyboard.readint();
+            System.out.println("Indica el número de columnes del taulell");
+            col = obj.nextInt(); //col=Keyboard.readint();
         }
-    }
-    private boolean quants(String paraula){
-        int quants=0;
-        int x=0;
-        while (x<usedWords.length) {
-            if(usedWords[x]==null){
-                return false;
+        Taulell t = new Taulell(fil, col);
+        while (!t.fiJoc()) {
+            System.out.println("Quina fila vols destapar?");
+            int fil1 = obj.nextInt();
+            System.out.println("Quina columna vols destapar?");
+            int col1 = obj.nextInt();
+            System.out.println("Quina segona fila vols destapar?");
+            int fil2 = obj.nextInt();
+            System.out.println("Quina segona columna vols destapar?");
+            int col2 = obj.nextInt();
+            while (fil1 == fil2 && col1 == col2 || fil1 > fil || fil2 > fil || col1 > col || col2 > col) {
+                System.out.println("Valors entrats incorrectes!");
+                System.out.println("Quina fila vols destapar?");
+                fil1 = obj.nextInt();
+                System.out.println("Quina columna vols destapar?");
+                col1 = obj.nextInt();
+                System.out.println("Quina segona fila vols destapar?");
+                fil2 = obj.nextInt();
+                System.out.println("Quina segona columna vols destapar?");
+                col2 = obj.nextInt();
+            }
+            fil1--;
+            col1--;
+            fil2--;
+            col2--;
+            while (t.aparellada(fil1, col1) || t.aparellada(fil2, col2)) {
+                System.out.println("Aquestes dades ja han sigut introduïdes, introdueix noves dades");
+                System.out.println("Quina fila vols destapar?");
+                fil1 = obj.nextInt();
+                System.out.println("Quina columna vols destapar?");
+                col1 = obj.nextInt();
+                System.out.println("Quina segona fila vols destapar?");
+                fil2 = obj.nextInt();
+                System.out.println("Quina segona columna vols destapar?");
+                col2 = obj.nextInt();
+            }
+            System.out.println("Comprovem els resultats:");
+            t.mostrar(fil1, col1, fil2, col2);
+            if (t.fanParella(fil1, col1, fil2, col2)) {
+                System.out.println("Felicitats!! Has trobat una parella");
             } else {
-                if(usedWords[x].equals(paraula)){
-                    quants++;
-                }
-                if (quants==2){
-                    return true;
-                }
-                x++;
+                System.out.println("Vaja! Torna a intentar-ho");
             }
         }
-        return false;
+        System.out.println("El joc ha acabat moltes gràcies per jugar!");
     }
 
-    public void mostrar(int fil1, int col1, int fil2, int col2){
-        if(fanParella(fil1,col1,fil2,col2)){
-            for(int x=0;x< fil;x++){
-                for(int y=0; y< col;y++){
-                    if(taulell[x][y].getParella()){
-                        taulell[x][y].mostrarParaula();
-                        System.out.print("        ");
-                    } else {
-                        System.out.print("TAPAT       ");
-                    }
-                }
-                System.out.println("");
-            }
-        } else {
-            for(int x=0;x< fil;x++) {
-                for (int y = 0; y < col; y++) {
-                    System.out.print("TAPAT       ");
-                }
-                System.out.println("");
-            }
-        }
-    }
-    public boolean fanParella(int fil1, int col1, int fil2, int col2){
-        if(taulell[fil1][col1].iguals(taulell[fil2][col2])){
-            if(taulell[fil1][col1].getParella() || taulell[fil2][col2].getParella()){
-                return true;
-            } else {
-                taulell[fil1][col1].setParella();
-                taulell[fil2][col2].setParella();
-                parelles++;
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean aparellada(int fil, int col){
-        return taulell[fil][col].getParella();
-    }
-    public boolean fiJoc(){
-        if (parelles==fil*col){
+    private static boolean ValorCorrecte(int fil, int col) {
+        if (fil * col % 2 == 0 && fil > 0 && col > 0 && fil * col <= 36) {
             return true;
+        } else {
+            System.out.println("Error, torna a indicar les mides");
+            return false;
         }
-        return false;
     }
 }
